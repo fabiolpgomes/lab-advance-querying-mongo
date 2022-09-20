@@ -34,35 +34,156 @@ const cursor = coll.find(filter, { projection, sort, limit });
 
 ### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'founded_year': {
+    '$gte': 2000, 
+    '$lte': 2005
+  }
+};
+const projection = {
+  'name': 1, 
+  'founded_year': 1, 
+  '_id': 0
+};
+const sort = {
+  'founded_year': 1
+};
+const cursor = coll.find(filter, { projection, sort });
 
 ### 4. All the companies that had a Valuation Amount of more than 100.000.000 and have been founded before 2010. Retrieve only the `name` and `ipo` fields.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  '$and': [
+    {
+      'ipo.valuation_amount': {
+        '$gte': 100000000
+      }
+    }, {
+      'founded_year': {
+        '$lte': 2010
+      }
+    }
+  ]
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'ipo': 1
+};
+
+const cursor = coll.find(filter, { projection });
 
 ### 5. All the companies that have less than 1000 employees and have been founded before 2005. Order them by the number of employees and limit the search to 10 companies.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  '$and': [
+    {
+      'number_of_employees': {
+        '$lte': 1000
+      }
+    }, {
+      'founded_year': {
+        '$lte': 2005
+      }
+    }
+  ]
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'number_of_employees': 1, 
+  'founded_year': 1
+};
+const sort = {
+  'founded_year': -1
+};
+const cursor = coll.find(filter, { projection, sort });
 
 ### 6. All the companies that don't include the `partners` field.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'partners': {
+    '$ne': []
+  }
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'partners': 1
+};
+
 
 ### 7. All the companies that have a null type of value on the `category_code` field.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'category_code': null
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'category_code': 1
+};
+const limit = 0;
+const cursor = coll.find(filter, { projection, limit });
+
 
 ### 8. All the companies that have at least 100 employees but less than 1000. Retrieve only the `name` and `number of employees` fields.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  '$and': [
+    {
+      'number_of_employees': {
+        '$gte': 100
+      }
+    }, {
+      'number_of_employees': {
+        '$lte': 1000
+      }
+    }
+  ]
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'number_of_employees': 1
+};
+const sort = {
+  'number_of_employees': -1
+};
+const limit = 0;
+const cursor = coll.find(filter, { projection, sort, limit });
 
 ### 9. Order all the companies by their IPO price in a descending order.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'ipo.valuation_amount': {
+    '$exists': true
+  }
+};
+const projection = {
+  'name': 1, 
+  '_id': 0, 
+  'ipo.valuation_amount': 1
+};
+const sort = {
+  'ipo.valuation_amount': -1
+};
+const cursor = coll.find(filter, { projection, sort });
+
 
 ### 10. Retrieve the 10 companies with most employees, order by the `number of employees`
 
-<!-- Your Code Goes Here -->
+const filter = {};
+const projection = {
+  'name': 1,
+  '_id': 0,
+  'number_of_employees': 1
+};
+const sort = {
+  'number_of_employees': -1
+};
+const limit = 10;
+
 
 ### 11. All the companies founded on the second semester of the year. Limit your search to 1000 companies.
 
