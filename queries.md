@@ -3,12 +3,34 @@
 # Answers
 
 ### 1. All the companies whose name match 'Babelgum'. Retrieve only their `name` field.
-
-<!-- Your Code Goes Here -->
+const filter = {
+  'name': 'Babelgum'
+};
+const projection = {
+  'name': 1, 
+  '_id': 0
+};
+const cursor = coll.find(filter, { projection });
 
 ### 2. All the companies that have more than 5000 employees. Limit the search to 20 companies and sort them by **number of employees**.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'number_of_employees': {
+    '$gt': 5000
+  }
+};
+const projection = {
+  'name': 1, 
+  'number_of_employees': 1, 
+  '_id': 0
+};
+const sort = {
+  'number_of_employees': -1
+};
+const limit = 20;
+
+const cursor = coll.find(filter, { projection, sort, limit });
+
 
 ### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
