@@ -6,6 +6,7 @@
 const filter = {
   'name': 'Babelgum'
 };
+
 const projection = {
   'name': 1, 
   '_id': 0
