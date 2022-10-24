@@ -17,6 +17,7 @@ We have learned some super useful query operators that will helps us to make muc
 
 - Upon completion, run the following commands
 
+
 ```
 $ git add .
 $ git commit -m "done"
